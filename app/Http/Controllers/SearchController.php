@@ -5,20 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 
-class TransactionController extends Controller
+class SearchController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function __construct()
-    {
-        $this->middleware('admin.auth');
-    }
     public function index()
     {
-        //
         $trans = Transaction::all();
-        return view('transactionview.index',compact('trans'));
+
+        return view('Search',compact("trans"));
     }
 
     /**
@@ -27,7 +23,6 @@ class TransactionController extends Controller
     public function create()
     {
         //
-        return view('transactionview.create');
     }
 
     /**
@@ -36,18 +31,6 @@ class TransactionController extends Controller
     public function store(Request $request)
     {
         //
-        $this->validate($request,[
-            'user_id' => 'required|numeric',
-            'book_id' => 'required|numeric',
-            'transaction_type' => 'required|in:Borrow,Return',
-            'transaction_date' => 'required|date',
-            'returned_date' => 'nullable|date', // Make it nullable if it's a borrow transaction
-            'due_date' => 'required|date',
-            // Add more validation rules as needed for other fields
-        ]);
-        Transaction::create($request->all());
-
-        return redirect()->route('tran.index')->with('msg','Make Transaction sussess');
     }
 
     /**
@@ -55,8 +38,7 @@ class TransactionController extends Controller
      */
     public function show(string $id)
     {
-        $tran = Transaction::find($id);
-        return view('transactionview.detail',compact('tran'));
+        //
     }
 
     /**
@@ -82,4 +64,23 @@ class TransactionController extends Controller
     {
         //
     }
+    public function showSearchForm()
+    {
+        return view('transaction.search');
+    }
+
+    /**
+     * Handle the search request and display the results.
+     */
+    public function search(Request $request)
+    {
+        $this->validate($request, [
+            'transaction_id' => 'required|numeric',
+        ]);
+
+        $transaction = Transaction::find($request->input('transaction_id'));
+
+        return view('transaction.search', ['transaction' => $transaction]);
+    }
+
 }

@@ -9,7 +9,7 @@
     <form class="row g-3" method="POST" action="{{ route('genre.store') }}">
         @csrf
         <div class="col-md-12">
-            <label for="" class="form-label">Author Name</label>
+            <label for="" class="form-label">Genre Title</label>
             <input type="text" class="form-control" id="" required="" name='genre_name'>
         </div>
 

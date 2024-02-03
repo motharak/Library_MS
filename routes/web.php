@@ -5,8 +5,20 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+// web.php
+
+
+// web.php
+
+
+
+Route::get('/search/transaction', [TransactionController::class, 'showSearchForm'])->name('search.transaction.form');
+Route::post('/search/transaction', [TransactionController::class, 'search'])->name('search.transaction');
+
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +38,8 @@ Route::match(['get', 'delete'], 'user/destroy/{id}', [UserController::class, 'de
 Route::resource('books',BookController::class);
 Route::resource('author',AuthorController::class);
 Route::resource('genre',GenreController::class);
+Route::resource('tran',TransactionController::class);
+Route::resource('search',SearchController::class);
 
 
 

@@ -7,6 +7,15 @@
     {{-- <link rel="icon" type="image/png"  href="favicon.png"> --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <title>Library @yield('pageTitle')</title>
+    <link href="https://cdn.datatables.net/v/dt/dt-1.13.8/datatables.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#example').DataTable();
+        })
+       
+    </script>
     <style>
     
         td {
@@ -68,7 +77,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link px-md-5 px-3 text-white {{ request()->is('st*') ? 'active' : '' }}">
+                            <a href="{{route('tran.index')}}" class="nav-link px-md-5 px-3 text-white {{ request()->is('tran*') ? 'active' : '' }}">
                                 Transactions
                             </a>
                         </li>
@@ -83,7 +92,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link px-md-5 px-3 text-white {{ request()->is('st*') ? 'active' : '' }}">
+                            <a href="{{route('search.index')}}" class="nav-link px-md-5 px-3 text-white {{ request()->is('st*') ? 'active' : '' }}">
                                 Search
                             </a>
                         </li>
@@ -146,6 +155,7 @@
         }, 4000);
     });
 </script>
-</script>
+
+
 </body>
 </html>
