@@ -65,6 +65,8 @@ class TransactionController extends Controller
     public function edit(string $id)
     {
         //
+        $data=Transaction::find($id);
+        return view('transactionview.edit',compact('data'));
     }
 
     /**
@@ -72,7 +74,29 @@ class TransactionController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // Validate the request data
+        $this->validate($request, [
+            'user_id' => 'required|numeric',
+            'book_id' => 'required|numeric',
+            'transaction_type' => 'required|in:Borrow,Return',
+            'transaction_date' => 'required|date',
+            'due_date' => 'required|date',
+            // Add more validation rules as needed for other fields
+        ]);
+    
+        // Find the transaction by ID
+        $transaction = Transaction::find($id);
+    
+        // Check if the transaction exists
+        if (!$transaction) {
+            return redirect()->route('tran.index')->with('error', 'Transaction not found');
+        }
+    
+        // Update the transaction with the new data
+        $transaction->update($request->all());
+    
+        // Redirect back to the index page with a success message
+        return redirect()->route('tran.index')->with('msg', 'Transaction updated successfully');
     }
 
     /**
